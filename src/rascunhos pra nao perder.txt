@@ -1,8 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import imagem1 from './img/camisa1.jpg';
 import styled from 'styled-components'
-import { listaDeProdutos } from './components/ListaDeProdutos/ListaDeProdutos';
 
 const MainContainer = styled.div `
   border: 3px solid yellow;
@@ -69,7 +69,8 @@ const Footer = styled.div `
   height:10vh;
   border: 3px solid pink;
 `
-
+const listaDeProdutos = [{id:" ", nome:" ", valor: " ", carrinho:"false",qtd: 0, secao:" "  }
+]
 class App extends React.Component {
 //funções aqui
 handleFiltroMin = (event) => {
@@ -88,7 +89,7 @@ handleFiltroNome = (event) => {
   });
 };
 botaoBuscar = () => {
-//pega os valores de min, max  e filtro e faz sua mágica
+//pega os valores de min e max e faz sua mágica
 };
 OrdenaLista = (ordem) => {
 
@@ -105,11 +106,9 @@ state = {
     ],
   valorMin:"",
   valorMax:"",
-  filtroNome: "",
-  produtosCarrinho: []
+  filtroNome: ""
 }
   render() {
-
     return (
       <div className="App">
         <MainContainer>
