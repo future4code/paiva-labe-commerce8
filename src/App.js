@@ -90,11 +90,55 @@ handleFiltroNome = (event) => {
 botaoBuscar = () => {
 //pega os valores de min, max  e filtro e faz sua mágica
 };
-OrdenaLista = (ordem) => {
-
+OrdenaLista = (array) => {
+  //copiada a função da lista semana4, ajustar para o problema em específico
+  let temp;
+  let novoArray = array;
+  for (let i = 0; i < array.length; i++) {
+    for (let i = 0; i < array.length; i++) {
+      if (novoArray[i] > novoArray[i + 1]) {
+        temp = novoArray[i];
+        novoArray[i] = novoArray[i + 1];
+        novoArray[i + 1] = temp;
+      }
+    }
+  }
+  return novoArray;
 };
 adicionaCarrinho = (idProduto) =>{
+  const addCart = [...listaDeProdutos];
+  addCart.filter((valor) => {
+    if (id === valor.id) {
+      if (valor.id) {
+        valor.qtd += valor.qtd;
+        return true;
+      } else {
+        valor.carrinho = !valor.carrinho;
+        valor.qtd = 1;
+        return true;
+      }
+    }
+    else {
+      return false;
+    }
+  });
+  this.setState({ produtosCarrinho: [...this.state.produtosCarrinho, addCart] });
+};
 
+botaoRemoverDoCarrinho = () =>{
+  const removeCart = [...this.state.produtosCarrinho];
+  removeCart.filter((valor) => {
+    if (id === valor.id) {
+      if (valor.id) {
+        valor.carrinho = !valor.carrinho;
+        valor.qtd = 0;
+        return true;
+      }
+    }
+    else {
+      return false;
+    }
+  });
 };
 botaoIrParaCarrinho = () =>{
 
