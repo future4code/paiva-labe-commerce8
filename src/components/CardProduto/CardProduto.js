@@ -13,7 +13,7 @@ class CardProduto extends React.Component {
                         <h2>{produto.nome}</h2>
                             <FlexRowSepara>
                             <h3>"Valor do Produto: R$ "{produto.valor}</h3>
-                            <button>Adicionar ao Carrinho</button>
+                            <button onClick={this.props.adicionaCarrinho()}>Adicionar ao Carrinho</button>
                             </FlexRowSepara>
                         </FlexColumn>
                     </FlexRow>
