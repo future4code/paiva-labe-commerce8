@@ -81,7 +81,9 @@ botaoRemoverDoCarrinho = (objeto) =>{
 botaoIrParaCarrinho = () =>{
 
 };
+
 //fim de funções
+
 state = {
   produtosNaTela: [
     ],
