@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {MainContainer, Header, TopContainer, Filtro, Inputs, NomeSecao, Ordem, MiddleContainer, Sections, CardGrid, Footer} from './styled';
-
+import {listaDeProdutos} from './components/ListaDeProdutos/'
 
 class App extends React.Component {
 //funções aqui
@@ -74,15 +74,17 @@ botaoRemoverDoCarrinho = (objeto) =>{
   const removeCart = [...this.state.produtosCarrinho];
   removeCart.filter((valor) => {
     if (objeto.id !== valor.id) {
-        return true;
-      }
+      return true;
+    }
   });
 };
 
 botaoIrParaCarrinho = () =>{
 
 };
+
 //fim de funções
+
 state = {
   produtosNaTela: [
     ],
