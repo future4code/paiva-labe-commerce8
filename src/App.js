@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import styled from 'styled-components'
 import { listaDeProdutos } from './components/ListaDeProdutos/ListaDeProdutos';
+import { prettyDOM } from '@testing-library/dom';
 
 const MainContainer = styled.div `
   border: 3px solid yellow;
@@ -106,23 +107,35 @@ OrdenaLista = (array) => {
   return novoArray;
 };
 adicionaCarrinho = (idProduto) =>{
-  const addCart = [...listaDeProdutos];
-  addCart.filter((valor) => {
-    if (id === valor.id) {
-      if (valor.id) {
-        valor.qtd += valor.qtd;
-        return true;
-      } else {
-        valor.carrinho = !valor.carrinho;
-        valor.qtd = 1;
-        return true;
-      }
+  //1° puxa a lista de carrinho para comparar o produto
+  const productId = [...listaDeProdutos];
+
+  productId.filter((produto)=> {
+    if (idProduto === produto.id) {
+      produto.carrinho = true;
+      return true;
     }
-    else {
-      return false;
+  })
+//verifica se esse id está ou não no produtosCarrinho e depois adiciona ou não qtd
+let estaNoCarrinho = false;
+let copiaCarrinho = [...this.state.produtosCarrinho]
+copiaCarrinho.map((produto)=>{
+if (produto.id === productId.id) {
+  estaNoCarrinho = true;
+}
+})
+if (estaNoCarrinho) {
+  copiaCarrinho.forEach((valor) => {
+    if (productId.id === valor.id) {
+      valor.qtd ++;
+      this.setState({ produtosCarrinho: copiaCarrinho });
     }
   });
-  this.setState({ produtosCarrinho: [...this.state.produtosCarrinho, addCart] });
+} else {
+  productId.qtd = 1;
+  this.setState({ produtosCarrinho: [...this.state.produtosCarrinho, productId] });
+}
+
 };
 
 botaoRemoverDoCarrinho = () =>{
