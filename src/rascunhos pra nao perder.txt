@@ -1,9 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import imagem1 from './img/camisa1.jpg';
 import styled from 'styled-components'
-import { listaDeProdutos } from './components/ListaDeProdutos/ListaDeProdutos';
-import { prettyDOM } from '@testing-library/dom';
 
 const MainContainer = styled.div `
   border: 3px solid yellow;
@@ -70,7 +69,8 @@ const Footer = styled.div `
   height:10vh;
   border: 3px solid pink;
 `
-
+const listaDeProdutos = [{id:" ", nome:" ", valor: " ", carrinho:"false",qtd: 0, secao:" "  }
+]
 class App extends React.Component {
 //funções aqui
 handleFiltroMin = (event) => {
@@ -89,69 +89,13 @@ handleFiltroNome = (event) => {
   });
 };
 botaoBuscar = () => {
-//pega os valores de min, max  e filtro e faz sua mágica
+//pega os valores de min e max e faz sua mágica
 };
-OrdenaLista = (array) => {
-  //copiada a função da lista semana4, ajustar para o problema em específico
-  let temp;
-  let novoArray = array;
-  for (let i = 0; i < array.length; i++) {
-    for (let i = 0; i < array.length; i++) {
-      if (novoArray[i] > novoArray[i + 1]) {
-        temp = novoArray[i];
-        novoArray[i] = novoArray[i + 1];
-        novoArray[i + 1] = temp;
-      }
-    }
-  }
-  return novoArray;
+OrdenaLista = (ordem) => {
+
 };
 adicionaCarrinho = (idProduto) =>{
-  //1° puxa a lista de carrinho para comparar o produto
-  const productId = [...listaDeProdutos];
 
-  productId.filter((produto)=> {
-    if (idProduto === produto.id) {
-      produto.carrinho = true;
-      return true;
-    }
-  })
-//verifica se esse id está ou não no produtosCarrinho e depois adiciona ou não qtd
-let estaNoCarrinho = false;
-let copiaCarrinho = [...this.state.produtosCarrinho]
-copiaCarrinho.map((produto)=>{
-if (produto.id === productId.id) {
-  estaNoCarrinho = true;
-}
-})
-if (estaNoCarrinho) {
-  copiaCarrinho.forEach((valor) => {
-    if (productId.id === valor.id) {
-      valor.qtd ++;
-      this.setState({ produtosCarrinho: copiaCarrinho });
-    }
-  });
-} else {
-  productId.qtd = 1;
-  this.setState({ produtosCarrinho: [...this.state.produtosCarrinho, productId] });
-}
-
-};
-
-botaoRemoverDoCarrinho = () =>{
-  const removeCart = [...this.state.produtosCarrinho];
-  removeCart.filter((valor) => {
-    if (id === valor.id) {
-      if (valor.id) {
-        valor.carrinho = !valor.carrinho;
-        valor.qtd = 0;
-        return true;
-      }
-    }
-    else {
-      return false;
-    }
-  });
 };
 botaoIrParaCarrinho = () =>{
 
@@ -162,11 +106,9 @@ state = {
     ],
   valorMin:"",
   valorMax:"",
-  filtroNome: "",
-  produtosCarrinho: []
+  filtroNome: ""
 }
   render() {
-
     return (
       <div className="App">
         <MainContainer>
