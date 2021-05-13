@@ -78,6 +78,7 @@ botaoRemoverDoCarrinho = (objeto) =>{
     }
   });
 };
+
 botaoIrParaCarrinho = () =>{
 
 };
