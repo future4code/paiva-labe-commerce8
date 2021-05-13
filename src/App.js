@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import {MainContainer, Header, TopContainer, Filtro, Inputs, NomeSecao, Ordem, MiddleContainer, Sections, CardGrid, Footer} from './styled';
-import {listaDeProdutos} from './components/ListaDeProdutos/'
+import {listaDeProdutos} from './components/ListaDeProdutos/ListaDeProdutos';
+import Carrinho from "./components/Carrinho"
 
 class App extends React.Component {
 //funções aqui
@@ -82,6 +83,14 @@ botaoRemoverDoCarrinho = (objeto) =>{
 botaoIrParaCarrinho = () =>{
 
 };
+trocaPagina = ()=>{
+    if (this.state.pagina === ""){
+        this.setState({pagina:"carrinho"})
+    }else {
+        this.setState({pagina:""})
+    }
+    console.log(this.state.pagina)
+}
 
 //fim de funções
 
@@ -91,15 +100,24 @@ state = {
   valorMin:"",
   valorMax:"",
   filtroNome: "",
-  produtosCarrinho: []
+  produtosCarrinho: [],
+  pagina: ""
 }
   render() {
+
+      const mostraPagina = () =>{
+          if (this.state.pagina === "carrinho"){
+              return <Carrinho/>
+             }}
 
     return (
       <div className="App">
         <MainContainer>
-  
+        {mostraPagina()}
           <Header>
+          <button onClick = {this.trocaPagina}>
+              {this.state.pagina ? "Voltar A Comprar":"Ir para o carrinho"}
+              </button>
           </Header>
           <TopContainer>
             <Filtro>
@@ -132,7 +150,8 @@ state = {
                   </select>
                 </p>
   
-                <button>Ir para o carrinho</button>
+                
+             
               </Ordem>
             </NomeSecao>
           </TopContainer>
@@ -140,6 +159,7 @@ state = {
           <MiddleContainer>
   
             <Sections>
+            
             </Sections>
   
             <CardGrid>
