@@ -70,21 +70,15 @@ if (estaNoCarrinho) {
 
 };
 
-botaoRemoverDoCarrinho = () =>{
+botaoRemoverDoCarrinho = (objeto) =>{
   const removeCart = [...this.state.produtosCarrinho];
   removeCart.filter((valor) => {
-    if (id === valor.id) {
-      if (valor.id) {
-        valor.carrinho = !valor.carrinho;
-        valor.qtd = 0;
+    if (objeto.id !== valor.id) {
         return true;
       }
-    }
-    else {
-      return false;
-    }
   });
 };
+
 botaoIrParaCarrinho = () =>{
 
 };
