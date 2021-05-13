@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {MainContainer, Header, TopContainer, Filtro, Inputs, NomeSecao, Ordem, MiddleContainer, Sections, CardGrid, Footer} from './styled';
-
+import {listaDeProdutos} from './components/ListaDeProdutos/'
 
 class App extends React.Component {
 //funções aqui
@@ -70,18 +70,11 @@ if (estaNoCarrinho) {
 
 };
 
-botaoRemoverDoCarrinho = () =>{
+botaoRemoverDoCarrinho = (objeto) =>{
   const removeCart = [...this.state.produtosCarrinho];
   removeCart.filter((valor) => {
-    if (id === valor.id) {
-      if (valor.id) {
-        valor.carrinho = !valor.carrinho;
-        valor.qtd = 0;
-        return true;
-      }
-    }
-    else {
-      return false;
+    if (objeto.id !== valor.id) {
+      return true;
     }
   });
 };
