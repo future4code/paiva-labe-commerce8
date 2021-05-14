@@ -29,6 +29,7 @@ export const NomeSecao = styled.div `
   border: 3px solid crimson;
   display: flex;
   flex-direction: column-reverse;
+  margin: 3px;
 `
 export const Ordem = styled.div `
   height: 40%;
