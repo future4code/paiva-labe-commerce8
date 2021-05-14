@@ -3,8 +3,10 @@ import './App.css';
 import {MainContainer, Header, TopContainer, Filtro, Inputs, NomeSecao, Ordem, MiddleContainer, Sections, CardGrid, Footer} from './styled';
 import {listaDeProdutos} from './components/ListaDeProdutos/ListaDeProdutos';
 import Carrinho from "./components/Carrinho"
+import CardProduto from './components/CardProduto/CardProduto'
 
 class App extends React.Component {
+
 //funções aqui
 handleFiltroMin = (event) => {
   this.setState({
@@ -43,38 +45,6 @@ OrdenaLista = (array) => {
   return novoArray;
 };
 
-adicionaCarrinho = (idProduto) =>{
-  const copiaLista = [...listaDeProdutos];
-
-  let productId = copiaLista.filter((produto)=> {
-    if (idProduto === produto.id) {
-      return true;
-    }
-    return false;
-  })
-  console.log("produto",productId)
-//ate aqui ok, é só o produto a ser comparado
-
-let carrinhoDeCompras = [...this.state.produtosCarrinho];
-
-let variavelDaCamilyS2 = false;
-
-carrinhoDeCompras.map((valor)=>{
-  if (idProduto===valor.id) {
-    variavelDaCamilyS2 = true;
-    valor.qtd++;
-  }
-})
-
-console.log("variaveldaCamily",variavelDaCamilyS2)
-if (!variavelDaCamilyS2){
-  productId.qtd = 1;
-  carrinhoDeCompras.push(productId)
-}
-this.setState({produtosCarrinho:[...carrinhoDeCompras]})
-console.log("carrinho",this.state.produtosCarrinho)
-};
-
 botaoRemoverDoCarrinho = (objeto) =>{
   const removeCart = [...this.state.produtosCarrinho];
   removeCart.filter((valor) => {
@@ -97,27 +67,59 @@ trocaPagina = ()=>{
     console.log(this.state.pagina)
 }
 
+adicionaCarrinho = (id) => {
+ const copiaLista = [...this.state.produtos];
+ 
+ let productId = copiaLista.filter((produto) => {
+   if (id === produto.id) {
+     return true;
+   }
+   return false;
+   });
+ 
+ let carrinhoLista = [...this.state.carrinho];
+ 
+ let estaNoCarrinho = false;
+   carrinhoLista.map((valor) => {
+     if (id === valor.id) {
+       estaNoCarrinho = true;
+       valor.qtd++;
+     }        
+     return false;
+   });
+   
+   if (!estaNoCarrinho) {
+     productId[0].qtd = 1;
+     carrinhoLista.push(productId[0]);
+   }
+   this.setState({ carrinho: [...carrinhoLista] });
+ };
+
 //fim de funções
 
 state = {
-  produtosNaTela: [...listaDeProdutos],
+  produtos: [...listaDeProdutos],
   valorMin:"",
   valorMax:"",
   filtroNome: "",
-  produtosCarrinho: [],
+  carrinho: [],
   pagina: ""
 }
   render() {
 
-      const mostraPagina = () =>{
-          if (this.state.pagina === "carrinho"){
-              return <Carrinho/>
-             }}
+    const mostraPagina = () =>{
+      if (this.state.pagina === "carrinho"){
+        return <Carrinho/>
+      }
+      else {
+      return <CardProduto produtos={this.state.produtos} adicionaCarrinho={this.adicionaCarrinho}/>
+      }
+    }
 
+                
     return (
       <div className="App">
         <MainContainer>
-        {mostraPagina()}
           <Header>
           <button onClick = {this.trocaPagina}>
               {this.state.pagina ? "Voltar A Comprar":"Ir para o carrinho"}
@@ -167,7 +169,7 @@ state = {
             </Sections>
   
             <CardGrid>
-              <CardProduto produtosNaTela={this.state.produtosNaTela} adicionaCarrinho={this.adicionaCarrinho}/>
+              {mostraPagina()}
             </CardGrid>
   
           </MiddleContainer>
