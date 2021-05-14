@@ -93,7 +93,41 @@ adicionaCarrinho = (id) => {
      carrinhoLista.push(productId[0]);
    }
    this.setState({ carrinho: [...carrinhoLista] });
+   console.log(this.state.carrinho)
  };
+
+ somar = (produto) => {
+   
+  let carrinhoLista = [... this.state.carrinho]
+  console.log(carrinhoLista)
+  carrinhoLista.map((valor) => {
+    if (produto === valor) {
+      valor.qtd++;
+    }        
+    return false;
+  });
+  this.setState({ carrinho: [...carrinhoLista] });
+};
+
+subtrair = (produto) => {
+  let carrinhoLista = [... this.state.carrinho]
+
+  if (produto.qtd > 1) {
+    carrinhoLista.map((valor) => {
+      if (produto === valor) {
+        valor.qtd--;
+      }        
+      return false;
+    });
+    this.setState({ carrinho: [...carrinhoLista] });
+
+  } else if (produto.qtd === 1) {
+      carrinhoLista.filter((item)=>{
+        return produto !== item 
+      })
+      this.setState({carrinho: [... carrinhoLista]})
+  }
+}
 
 //fim de funções
 
@@ -109,7 +143,7 @@ state = {
 
     const mostraPagina = () =>{
       if (this.state.pagina === "carrinho"){
-        return <Carrinho/>
+        return <Carrinho carrinho={this.state.carrinho} somar={this.somar} subtrair={this.subtrair}/>
       }
       else {
       return <CardProduto produtos={this.state.produtos} adicionaCarrinho={this.adicionaCarrinho}/>
