@@ -33,7 +33,7 @@ export default class Carrinho extends React.Component {
         produto: "",
         valorTotal: 0,
         pedidos: [
-            { nomeDoProduto: 0, quantidadeDoPedido: 0, valorDoPedido: 0 }]
+        { nomeDoProduto: 0, quantidadeDoPedido: 0, valorDoPedido: 0 }]
     }
 
     mostrarCarrinho = () => {
@@ -43,7 +43,7 @@ export default class Carrinho extends React.Component {
     }
 
 
-    somar = () => {
+    somar = (produto) => {
         this.setState({ quantidade: this.state.quantidade + 1 });
         this.setState({ produto: "produto" });//ao enves do 1 puxar o value do nome que está no card produto//
         if (this.state.quantidade === 0) {
@@ -52,7 +52,7 @@ export default class Carrinho extends React.Component {
         //ao enves do 100 puxar o value do valor que está no card produto//
     };
 
-    subtrair = () => {
+    subtrair = (produto) => {
         if (this.state.quantidade > 0) {
             this.setState({ quantidade: this.state.quantidade - 1 });
             this.setState({ valorTotal: (this.state.quantidade - 1) * 100 });
@@ -63,10 +63,28 @@ export default class Carrinho extends React.Component {
     }
 
     render() {
-
+        
+        const carrinhoConteudo = () =>{
+            if (this.state.pagina === ""){
+              return <p>Seu carrinho está vazio</p>
+            }
+            else {
+            return(
+                this.props.carrinho.map((produto) => {
+                    <div>
+                    <h5>Quantidade: {produto.qtd}</h5>
+                    <h5>`Valor Total: ${produto.qtd * produto.valor}`</h5>
+                    <button onClick={()=>somar(produto)}>+</button>
+                    <Botao onClick={this.subtrair(produto)}>-</Botao>
+                    </div>
+                })  
+            ) 
+            }
+          }
+        
         return (
             <div>
-                <button onClick={this.somar}>Adcionar ao Carrinho</button>
+                
                 <Body>
                     
                     <Borda>
@@ -77,12 +95,10 @@ export default class Carrinho extends React.Component {
                         </Sessao>
 
                         <Sessao>
-                            {this.state.quantidade ? <h3>Nome do Produto: {this.state.produto}</h3> : "O seu carrinho está vazio"}
-                            <Botao onClick={this.subtrair}>Remover</Botao>
+                            {carrinhoConteudo()}                            
                         </Sessao>
 
-                        <h5>Quantidade: {this.state.quantidade}</h5>
-                        <h5>Valor Total:{this.state.valorTotal}</h5>
+
 
                     </Borda>
                 </Body>
