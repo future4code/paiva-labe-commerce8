@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {MainContainer, Header, TopContainer, Filtro, Inputs, NomeSecao, Ordem, MiddleContainer, Sections, CardGrid, Footer} from './styled';
-import {listaDeProdutos} from './components/ListaDeProdutos/'
+import {listaDeProdutos} from './components/ListaDeProdutos/ListaDeProdutos'
 
 class App extends React.Component {
 //funções aqui
@@ -21,6 +21,8 @@ handleFiltroNome = (event) => {
   });
 };
 botaoBuscar = () => {
+  const listaFiltrada = []
+  {this.listaDeProdutos.valor >= this.valorMin && this.listaDeProdutos.valor < this.valorMax ?listaFiltrada.push(listaDeProdutos) : listaFiltrada = "Produto não encontrado" }
 //pega os valores de min, max  e filtro e faz sua mágica
 };
 OrdenaLista = (array) => {
