@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import {MainContainer, Header, TopContainer, Filtro, Inputs, NomeSecao, Ordem, MiddleContainer, Sections, CardGrid, Footer} from './styled';
-import {listaDeProdutos} from './components/ListaDeProdutos/'
+import {listaDeProdutos} from './components/ListaDeProdutos/ListaDeProdutos'
+import CardProduto from './components/CardProduto/CardProduto';
 
 class App extends React.Component {
 //funções aqui
@@ -21,8 +22,11 @@ handleFiltroNome = (event) => {
   });
 };
 botaoBuscar = () => {
-//pega os valores de min, max  e filtro e faz sua mágica
-};
+    return this.state.listaProdutos
+    .filter(produto => produto.valor >=this.state.valorMin)
+    .filter(produto => produto.valor <= this.state.valorMax)
+    .filter(produto => produto.name.includes(this.state.filtroNome))
+    }
 OrdenaLista = (array) => {
   //copiada a função da lista semana4, ajustar para o problema em específico
   let temp;
@@ -38,36 +42,37 @@ OrdenaLista = (array) => {
   }
   return novoArray;
 };
-adicionaCarrinho = (idProduto) =>{
-  //1° puxa a lista de carrinho para comparar o produto
-  const productId = [...listaDeProdutos];
 
-  productId.filter((produto)=> {
+adicionaCarrinho = (idProduto) =>{
+  const copiaLista = [...listaDeProdutos];
+
+  let productId = copiaLista.filter((produto)=> {
     if (idProduto === produto.id) {
-      produto.carrinho = true;
       return true;
     }
+    return false;
   })
-//verifica se esse id está ou não no produtosCarrinho e depois adiciona ou não qtd
-let estaNoCarrinho = false;
-let copiaCarrinho = [...this.state.produtosCarrinho]
-copiaCarrinho.map((produto)=>{
-if (produto.id === productId.id) {
-  estaNoCarrinho = true;
-}
-})
-if (estaNoCarrinho) {
-  copiaCarrinho.forEach((valor) => {
-    if (productId.id === valor.id) {
-      valor.qtd ++;
-      this.setState({ produtosCarrinho: copiaCarrinho });
-    }
-  });
-} else {
-  productId.qtd = 1;
-  this.setState({ produtosCarrinho: [...this.state.produtosCarrinho, productId] });
-}
+  console.log("produto",productId)
+//ate aqui ok, é só o produto a ser comparado
 
+let carrinhoDeCompras = [...this.state.produtosCarrinho];
+
+let variavelDaCamilyS2 = false;
+
+carrinhoDeCompras.map((valor)=>{
+  if (idProduto===valor.id) {
+    variavelDaCamilyS2 = true;
+    valor.qtd++;
+  }
+})
+
+console.log("variaveldaCamily",variavelDaCamilyS2)
+if (!variavelDaCamilyS2){
+  productId.qtd = 1;
+  carrinhoDeCompras.push(productId)
+}
+this.setState({produtosCarrinho:[...carrinhoDeCompras]})
+console.log("carrinho",this.state.produtosCarrinho)
 };
 
 botaoRemoverDoCarrinho = (objeto) =>{
@@ -76,6 +81,7 @@ botaoRemoverDoCarrinho = (objeto) =>{
     if (objeto.id !== valor.id) {
       return true;
     }
+    return false;
   });
 };
 
@@ -86,8 +92,7 @@ botaoIrParaCarrinho = () =>{
 //fim de funções
 
 state = {
-  produtosNaTela: [
-    ],
+  produtosNaTela: [...listaDeProdutos],
   valorMin:"",
   valorMax:"",
   filtroNome: "",
@@ -143,6 +148,7 @@ state = {
             </Sections>
   
             <CardGrid>
+              <CardProduto produtosNaTela={this.state.produtosNaTela} adicionaCarrinho={this.adicionaCarrinho}/>
             </CardGrid>
   
           </MiddleContainer>
