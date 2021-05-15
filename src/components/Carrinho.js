@@ -55,7 +55,7 @@ export default class Carrinho extends React.Component {
                         <div>
                             <h5>Produto: {produto.nome}</h5>
                             <h5>Quantidade: {produto.qtd}</h5>
-                            <h5>Total do item: {produto.qtd * produto.valor}</h5>
+                            <h5>Total do item: {(produto.qtd * produto.valor).toFixed(2)}</h5>
                             <button onClick={() => this.props.somar(produto)}>Adicionar</button>
                         <button onClick={() => this.props.subtrair(produto)}>Remover</button>
                         </div>
