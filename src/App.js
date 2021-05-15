@@ -24,11 +24,12 @@ handleFiltroNome = (event) => {
   });
 };
 botaoBuscar = () => {
-    return this.state.listaProdutos
+  this.setState({produtos: listaDeProdutos
     .filter(produto => produto.valor >=this.state.valorMin)
     .filter(produto => produto.valor <= this.state.valorMax)
-    .filter(produto => produto.name.includes(this.state.filtroNome))
-    }
+    .filter(produto => produto.nome.includes(this.state.filtroNome))
+  })  
+  }
 ordenaLista = (array) => {
  // copiada a função da lista semana4, ajustar para o problema em específico
   let temp;
@@ -55,9 +56,6 @@ botaoRemoverDoCarrinho = (objeto) =>{
   });
 };
 
-botaoIrParaCarrinho = () =>{
-
-};
 trocaPagina = ()=>{
     if (this.state.pagina === ""){
         this.setState({pagina:"carrinho"})
@@ -125,7 +123,6 @@ subtrair = (item) => {
     });
     carrinhoLista.splice(posicao, 1);
   }
-  console.log(carrinhoLista);
   this.setState({ carrinho: [...carrinhoLista] });
 }
 
@@ -139,8 +136,10 @@ state = {
   carrinho: [],
   pagina: ""
 }
+
   render() {
 
+  
     const mostraPagina = () =>{
       if (this.state.pagina === "carrinho"){
         return <Carrinho carrinho={this.state.carrinho} somar={this.somar} subtrair={this.subtrair}/>
