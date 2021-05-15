@@ -44,6 +44,7 @@ export const MiddleContainer = styled.div `
   border: 3px solid red;
   margin: 3px;
   box-sizing: content-box;
+  min-height:48vh;
 `
 export const Sections = styled.div `
   width: 20vw;

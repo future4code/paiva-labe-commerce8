@@ -64,7 +64,6 @@ trocaPagina = ()=>{
     }else {
         this.setState({pagina:""})
     }
-    console.log(this.state.pagina)
 }
 
 adicionaCarrinho = (id) => {
@@ -93,13 +92,11 @@ adicionaCarrinho = (id) => {
      carrinhoLista.push(productId[0]);
    }
    this.setState({ carrinho: [...carrinhoLista] });
-   console.log(this.state.carrinho)
  };
 
  somar = (produto) => {
    
-  let carrinhoLista = [... this.state.carrinho]
-  console.log(carrinhoLista)
+  let carrinhoLista = [...this.state.carrinho]
   carrinhoLista.map((valor) => {
     if (produto === valor) {
       valor.qtd++;
@@ -109,24 +106,27 @@ adicionaCarrinho = (id) => {
   this.setState({ carrinho: [...carrinhoLista] });
 };
 
-subtrair = (produto) => {
-  let carrinhoLista = [... this.state.carrinho]
-
-  if (produto.qtd > 1) {
+subtrair = (item) => {
+ let carrinhoLista = [...this.state.carrinho];
+  if (item.qtd > 1) {
     carrinhoLista.map((valor) => {
-      if (produto === valor) {
+      if (item.id === valor.id) {
         valor.qtd--;
-      }        
+      }
       return false;
     });
-    this.setState({ carrinho: [...carrinhoLista] });
-
-  } else if (produto.qtd === 1) {
-      carrinhoLista.filter((item)=>{
-        return produto !== item 
-      })
-      this.setState({carrinho: [... carrinhoLista]})
+  } else {
+    let posicao = null;
+    carrinhoLista.filter((valor, index) => {
+      if (item.id === valor.id) {
+        posicao = index;
+      }
+      return true;
+    });
+    carrinhoLista.splice(posicao, 1);
   }
+  console.log(carrinhoLista);
+  this.setState({ carrinho: [...carrinhoLista] });
 }
 
 //fim de funções
@@ -160,19 +160,19 @@ state = {
           <TopContainer>
             <Filtro>
               <Inputs>
-                <p>Valor mínimo: 
+                <p>Valor mínimo:<br/>
                   <input type="number" onChange={this.handleFiltroMin}/>
                 </p>
               </Inputs>
   
               <Inputs>
-                <p>Valor máximo: 
+                <p>Valor máximo:<br/>
                   <input type="number" onChange={this.handleFiltroMax}/>
                 </p>
               </Inputs>
   
               <Inputs>
-                <p>Busca por nome:
+                <p>Busca por nome:<br/>
                   <input type="text" onChange={this.handleFiltroNome}/><br/><br/>
                   <button onClick={this.botaoBuscar}>Filtrar</button>
                 </p>

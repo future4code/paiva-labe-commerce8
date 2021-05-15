@@ -3,18 +3,18 @@ import styled from "styled-components";
 
 
 const Body = styled.body`
-display:grid;
+display:flex;
 justify-content: space-around;
 padding: 2%;
 margin-right:2%;
 
 `
 const Borda = styled.div`
-border: 2px solid black;
+/* border: 2px solid black; */
 text-align:center;
 min-width:30vw;
 padding:8%;
-background-color:#9DE1FE;
+/* background-color:#9DE1FE; */
 `
 const Sessao = styled.section`
 display:flex;
@@ -27,35 +27,16 @@ height:2%;
 `
 
 export default class Carrinho extends React.Component {
-    state = {
-        carrinho: true,
-        quantidade: 0,
-        produto: "",
-        valorTotal: 0,
-        pedidos: [{ 
-            nomeDoProduto: 0, 
-            quantidadeDoPedido: 0, 
-            valorDoPedido: 0 
-        }]
-    }
-
     render() {
-        
-        const carrinhoConteudo = () =>{
-
+        const somaTotal = () => {
+            let soma = 0
             {this.props.carrinho.map((produto) => {
-                console.log(this.props.carrinho)
-                return(
-                    <div>
-                    <h5>Quantidade: {produto.qtd}</h5>
-                    <h5>`Valor Total: ${produto.qtd * produto.valor}`</h5>
-                    <button onClick={() => this.props.somar(produto)}>+</button>
-                    <Botao onClick={() => this.props.subtrair(produto)}>-</Botao>
-                    </div>
-                )}
-                )
-
-    }}
+            soma += produto.valor*produto.qtd
+            })
+            return (<div>Total da Compra:R$ {soma.toFixed(2)}</div>)
+        }
+    }
+// 
         
         return (
             <div>
@@ -63,9 +44,25 @@ export default class Carrinho extends React.Component {
                     <Borda>
                         <Sessao>
                             <h1>Carrinho</h1>
+
                         </Sessao>
                         <Sessao>
-                            {carrinhoConteudo()}                            
+                        {somaTotal()}   
+                        </Sessao>
+                        <Sessao>
+                        {this.props.carrinho.map((produto) => {
+                        return(
+                        <div>
+                            <h5>Produto: {produto.nome}</h5>
+                            <h5>Quantidade: {produto.qtd}</h5>
+                            <h5>Total do item: {produto.qtd * produto.valor}</h5>
+                            <button onClick={() => this.props.somar(produto)}>Adicionar</button>
+                        <button onClick={() => this.props.subtrair(produto)}>Remover</button>
+                        </div>
+                    )}
+                    )
+    }
+                    
                         </Sessao>
                     </Borda>
                 </Body>
