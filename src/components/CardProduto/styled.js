@@ -3,20 +3,19 @@ import styled from 'styled-components'
 export const Container = styled.div`
 display: grid;
 row-gap: 1ch;
-grid-template-columns: repeat(2, 1fr);
+grid-template-columns: repeat(3, 1fr);
 `
 
 export const FlexRow= styled.div`
 display: flex;
 height:150px;
 width:100%;
-box-sizing:border-box;
+justify-content: space-around;
 `
 export const FlexColumn = styled.div`
 display: flex;
 flex-direction: column;
 height: 100%;
-
 `
 export const ImgCart = styled.img`
 height: 150px;
@@ -26,7 +25,7 @@ object-fit: cover;
 export const FlexRowSepara = styled.div`
 display:flex;
 justify-content: space-between;
-padding: 4px;
+padding: 0px 4px;
 `
 export const Button = styled.button`
     min-width: 10rem;
@@ -37,4 +36,5 @@ export const Button = styled.button`
     height: 48px;
     text-overflow: ellipsis;
     margin: auto;
+    margin-left: 8px;
 `
