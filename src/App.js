@@ -29,8 +29,8 @@ botaoBuscar = () => {
     .filter(produto => produto.valor <= this.state.valorMax)
     .filter(produto => produto.name.includes(this.state.filtroNome))
     }
-OrdenaLista = (array) => {
-  //copiada a função da lista semana4, ajustar para o problema em específico
+ordenaLista = (array) => {
+ // copiada a função da lista semana4, ajustar para o problema em específico
   let temp;
   let novoArray = array;
   for (let i = 0; i < array.length; i++) {
@@ -155,28 +155,26 @@ state = {
       <div className="App">
         <MainContainer>
           <Header>
-          <button onClick = {this.trocaPagina}>
-              {this.state.pagina ? "Voltar A Comprar":"Ir para o carrinho"}
-              </button>
+        Oi, eu sou o header!
           </Header>
           <TopContainer>
             <Filtro>
               <Inputs>
-                <p>Valor mínimo:
+                <p>Valor mínimo: 
                   <input type="number" onChange={this.handleFiltroMin}/>
                 </p>
               </Inputs>
   
               <Inputs>
-                <p>Valor máximo
+                <p>Valor máximo: 
                   <input type="number" onChange={this.handleFiltroMax}/>
                 </p>
               </Inputs>
   
               <Inputs>
                 <p>Busca por nome:
-                  <input type="text" onChange={this.handleFiltroNome}/>
-                  <button onClick={this.botaoBuscar}>Buscar</button>
+                  <input type="text" onChange={this.handleFiltroNome}/><br/><br/>
+                  <button onClick={this.botaoBuscar}>Filtrar</button>
                 </p>
               </Inputs>
             </Filtro>
@@ -189,17 +187,18 @@ state = {
                     <option>Decrescente</option>
                   </select>
                 </p>
-  
-                
-             
+                <button onClick = {this.trocaPagina}>
+              {this.state.pagina ? "Voltar A Comprar":"Ir para o carrinho"}
+              </button>
               </Ordem>
+
             </NomeSecao>
           </TopContainer>
   
           <MiddleContainer>
   
             <Sections>
-            
+            lalala
             </Sections>
   
             <CardGrid>
