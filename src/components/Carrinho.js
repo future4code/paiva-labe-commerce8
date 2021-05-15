@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { Comp, Titulos, TopContainer } from "../styled";
+import CardProduto from "./CardProduto/CardProduto";
+import Icone from '../img/carrinho.png'
 
 
 const Body = styled.body`
@@ -33,7 +36,7 @@ export default class Carrinho extends React.Component {
         produto: "",
         valorTotal: 0,
         pedidos: [
-        { nomeDoProduto: 0, quantidadeDoPedido: 0, valorDoPedido: 0 }]
+            { nomeDoProduto: 0, quantidadeDoPedido: 0, valorDoPedido: 0 }]
     }
 
     mostrarCarrinho = () => {
@@ -42,14 +45,13 @@ export default class Carrinho extends React.Component {
         }
     }
 
-
     somar = (produto) => {
         this.setState({ quantidade: this.state.quantidade + 1 });
-        this.setState({ produto: "produto" });//ao enves do 1 puxar o value do nome que está no card produto//
+        this.setState({ produto: "produto" });
         if (this.state.quantidade === 0) {
             this.setState({ valorTotal: 100 });
         } else { this.setState({ valorTotal: (this.state.quantidade + 1) * 100 }); }
-        //ao enves do 100 puxar o value do valor que está no card produto//
+
     };
 
     subtrair = (produto) => {
@@ -63,46 +65,18 @@ export default class Carrinho extends React.Component {
     }
 
     render() {
-        
-        const carrinhoConteudo = () =>{
-            if (this.state.pagina === ""){
-              return <p>Seu carrinho está vazio</p>
-            }
-            else {
-            return(
-                this.props.carrinho.map((produto) => {
-                    <div>
-                    <h5>Quantidade: {produto.qtd}</h5>
-                    <h5>`Valor Total: ${produto.qtd * produto.valor}`</h5>
-                    <button onClick={()=>somar(produto)}>+</button>
-                    <Botao onClick={this.subtrair(produto)}>-</Botao>
-                    </div>
-                })  
-            ) 
-            }
-          }
-        
+
+
+
         return (
             <div>
-                
-                <Body>
-                    
-                    <Borda>
-                
-                    
-                        <Sessao>
-                            <h1>Carrinho</h1>
-                        </Sessao>
-
-                        <Sessao>
-                            {carrinhoConteudo()}                            
-                        </Sessao>
+                <TopContainer>
+                    <Comp>Carrinho</Comp> <img src={Icone}/>
+                </TopContainer>
+              
+              
 
 
-
-                    </Borda>
-                </Body>
-                
             </div>
         )
     }

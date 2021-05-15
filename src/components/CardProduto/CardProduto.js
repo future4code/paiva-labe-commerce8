@@ -1,4 +1,5 @@
 import React from 'react';
+import { BotaoCompras } from '../../styled';
 import {FlexRow,FlexColumn,FlexRowSepara, ImgCart} from "./styled"
 
 class CardProduto extends React.Component {
