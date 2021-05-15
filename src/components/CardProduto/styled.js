@@ -37,4 +37,5 @@ export const Button = styled.button`
     text-overflow: ellipsis;
     margin: auto;
     margin-left: 8px;
+    :hover {background-color:rgba(238, 77, 45, .9);}
 `
