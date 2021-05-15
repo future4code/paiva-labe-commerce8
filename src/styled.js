@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const MainContainer = styled.div `
   border: 3px solid yellow;
-  height:fit-content;
   margin: 3px;
 `
 export const Header = styled.div `
@@ -42,9 +41,9 @@ export const Ordem = styled.div `
 `
 export const MiddleContainer = styled.div `
   display: flex;
-  height: 50vh;
   border: 3px solid red;
   margin: 3px;
+  box-sizing: content-box;
 `
 export const Sections = styled.div `
   width: 20vw;
@@ -71,4 +70,5 @@ export const CardGrid = styled.div `
 export const Footer = styled.div `
   height:10vh;
   border: 3px solid pink;
+  
 `
