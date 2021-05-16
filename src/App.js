@@ -24,11 +24,12 @@ handleFiltroNome = (event) => {
   });
 };
 botaoBuscar = () => {
-    return this.state.listaProdutos
+  this.setState({produtos: listaDeProdutos
     .filter(produto => produto.valor >=this.state.valorMin)
     .filter(produto => produto.valor <= this.state.valorMax)
-    .filter(produto => produto.name.includes(this.state.filtroNome))
-    }
+    .filter(produto => produto.nome.includes(this.state.filtroNome))
+  })  
+  }
 ordenaLista = (array) => {
  // copiada a função da lista semana4, ajustar para o problema em específico
   let temp;
@@ -55,16 +56,12 @@ botaoRemoverDoCarrinho = (objeto) =>{
   });
 };
 
-botaoIrParaCarrinho = () =>{
-
-};
 trocaPagina = ()=>{
     if (this.state.pagina === ""){
         this.setState({pagina:"carrinho"})
     }else {
         this.setState({pagina:""})
     }
-    console.log(this.state.pagina)
 }
 
 adicionaCarrinho = (id) => {
@@ -93,13 +90,11 @@ adicionaCarrinho = (id) => {
      carrinhoLista.push(productId[0]);
    }
    this.setState({ carrinho: [...carrinhoLista] });
-   console.log(this.state.carrinho)
  };
 
  somar = (produto) => {
    
-  let carrinhoLista = [... this.state.carrinho]
-  console.log(carrinhoLista)
+  let carrinhoLista = [...this.state.carrinho]
   carrinhoLista.map((valor) => {
     if (produto === valor) {
       valor.qtd++;
@@ -109,24 +104,26 @@ adicionaCarrinho = (id) => {
   this.setState({ carrinho: [...carrinhoLista] });
 };
 
-subtrair = (produto) => {
-  let carrinhoLista = [... this.state.carrinho]
-
-  if (produto.qtd > 1) {
+subtrair = (item) => {
+ let carrinhoLista = [...this.state.carrinho];
+  if (item.qtd > 1) {
     carrinhoLista.map((valor) => {
-      if (produto === valor) {
+      if (item.id === valor.id) {
         valor.qtd--;
-      }        
+      }
       return false;
     });
-    this.setState({ carrinho: [...carrinhoLista] });
-
-  } else if (produto.qtd === 1) {
-      carrinhoLista.filter((item)=>{
-        return produto !== item 
-      })
-      this.setState({carrinho: [... carrinhoLista]})
+  } else {
+    let posicao = null;
+    carrinhoLista.filter((valor, index) => {
+      if (item.id === valor.id) {
+        posicao = index;
+      }
+      return true;
+    });
+    carrinhoLista.splice(posicao, 1);
   }
+  this.setState({ carrinho: [...carrinhoLista] });
 }
 
 //fim de funções
@@ -139,8 +136,10 @@ state = {
   carrinho: [],
   pagina: ""
 }
+
   render() {
 
+  
     const mostraPagina = () =>{
       if (this.state.pagina === "carrinho"){
         return <Carrinho carrinho={this.state.carrinho} somar={this.somar} subtrair={this.subtrair}/>
@@ -160,19 +159,19 @@ state = {
           <TopContainer>
             <Filtro>
               <Inputs>
-                <p>Valor mínimo: 
+                <p>Valor mínimo:<br/>
                   <input type="number" onChange={this.handleFiltroMin}/>
                 </p>
               </Inputs>
   
               <Inputs>
-                <p>Valor máximo: 
+                <p>Valor máximo:<br/>
                   <input type="number" onChange={this.handleFiltroMax}/>
                 </p>
               </Inputs>
   
               <Inputs>
-                <p>Busca por nome:
+                <p>Busca por nome:<br/>
                   <input type="text" onChange={this.handleFiltroNome}/><br/><br/>
                   <button onClick={this.botaoBuscar}>Filtrar</button>
                 </p>
