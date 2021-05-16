@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, FlexRow,FlexColumn,FlexRowSepara, ImgCart, Button} from "./styled"
 
+
 class CardProduto extends React.Component {
 
     render() {

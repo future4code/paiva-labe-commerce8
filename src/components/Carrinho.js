@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { Comp, Titulos, TopContainer } from "../styled";
+import CardProduto from "./CardProduto/CardProduto";
+import Icone from '../img/carrinho.png'
 
 
 const Body = styled.body`
@@ -71,4 +74,5 @@ export default class Carrinho extends React.Component {
         )
     
 }
+
 }
