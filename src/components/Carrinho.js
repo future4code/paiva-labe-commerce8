@@ -13,7 +13,6 @@ margin-right:2%;
 
 `
 const Borda = styled.div`
-/* border: 2px solid black; */
 text-align:center;
 min-width:30vw;
 padding:8%;
