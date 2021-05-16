@@ -9,10 +9,10 @@ export const MainContainer = styled.div`
 `
 export const Header = styled.div`
   display:flex;
+  background-color: #727272;
   justify-content:space-around;
   align-items:center;
   height: 10vh;
-  background-color:white;  
   img {
     height: 10vh
   }
@@ -49,7 +49,6 @@ export const MiddleContainer = styled.div`
   box-sizing: content-box;
   min-height:48vh;
   max-width: 100vw;
-  height: fit-content;
 `
 export const Sections = styled.div`
   width: 20vw;
@@ -66,14 +65,21 @@ export const CardGrid = styled.div`
   flex-direction: column;
   box-sizing: content-box;
   height: fit-content;
+  width:80vw;
+  grid-gap: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width:80vw;
+  box-sizing: content-box;
 `
 export const Footer = styled.div`
   height:10vh;
+  margin-top: 5vh;
   background-color: #727272;
   img {
     height: 4vh
   };
-
 `
 export const BotaoCar = styled.button`
   height: 40px;
@@ -84,6 +90,8 @@ export const BotaoCar = styled.button`
   border-color: white;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
+  :hover {background-color:rgba(238, 77, 45, .9);}
 
 `
 export const Titulos = styled.h2`

@@ -8,8 +8,8 @@ import Icone from '../img/carrinho.png'
 const Body = styled.body`
 display:flex;
 justify-content: space-around;
-padding: 2%;
-margin-right:2%;
+height: 25vh;
+width: 100%;
 
 `
 const Borda = styled.div`
@@ -18,7 +18,7 @@ min-width:30vw;
 padding:8%;
 /* background-color:#9DE1FE; */
 `
-const Sessao = styled.section`
+const Sessao = styled.div`
 display:flex;
 justify-content: space-around;
 
@@ -46,8 +46,8 @@ export default class Carrinho extends React.Component {
                     <Borda>
                         <Sessao>
                             <h1>Carrinho</h1>
-
                         </Sessao>
+                        
                         <Sessao>
                         {somaTotal()}   
                         </Sessao>
@@ -61,9 +61,8 @@ export default class Carrinho extends React.Component {
                             <button onClick={() => this.props.somar(produto)}>Adicionar</button>
                         <button onClick={() => this.props.subtrair(produto)}>Remover</button>
                         </div>
+                        )}
                     )}
-                    )
-    }
                     
                         </Sessao>
                     </Borda>

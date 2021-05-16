@@ -19,8 +19,8 @@ flex-direction: column;
 height: 100%;
 `
 export const ImgCart = styled.img`
-height: 100px;
-width: 100px;
+height: 150px;
+width: 150px;
 object-fit: cover;
 `
 export const FlexRowSepara = styled.div`
@@ -35,7 +35,7 @@ export const Button = styled.button`
     color: #fff;
     background: #ee4d2d;
     border-radius: 5px;
-    height: 48px;
+    height: 52px;
     text-overflow: ellipsis;
     margin: auto;
     margin-left: 8px;

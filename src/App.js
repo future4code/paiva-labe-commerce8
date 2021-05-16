@@ -21,86 +21,7 @@ import Twitter from './img/twitter.png'
 
 
 class App extends React.Component {
-  //funções aqui
-  // ordenaLista = (array) => {
-    //  // copiada a função da lista semana4, ajustar para o problema em específico
-    //   let temp;
-    //   let novoArray = array;
-    //   for (let i = 0; i < array.length; i++) {
-    //     for (let i = 0; i < array.length; i++) {
-      //       if (novoArray[i] > novoArray[i + 1]) {
-        //         temp = novoArray[i];
-        //         novoArray[i] = novoArray[i + 1];
-        //         novoArray[i + 1] = temp;
-        //       }
-        //     }
-        //     }
-        //   }
-        //     OrdenaLista = (array) => {
-          //         //copiada a função da lista semana4, ajustar para o problema em específico
-//         let temp;
-//         let novoArray = array;
-//         for (let i = 0; i < array.length; i++) {
-  //             for (let i = 0; i < array.length; i++) {
-  //                 if (novoArray[i] > novoArray[i + 1]) {
-    //                     temp = novoArray[i];
-    //                     novoArray[i] = novoArray[i + 1];
-    //                     novoArray[i + 1] = temp;
-    //                 }
-    //             }
-    //         }
-    //         return novoArray;
-    // };
-    
-    //     adicionaCarrinho = (id) => {
-    //         const copiaLista = [...this.state.produtos];
-    
-    //         let productId = copiaLista.filter((produto) => {
-    //             if (id === produto.id) {
-      //                 return true;
-    //             }
-    //             return false;
-    //         });
-    
-    
-    //         let carrinhoLista = [...this.state.carrinho];
-    
-    //         let estaNoCarrinho = false;
-    //         carrinhoLista.map((valor) => {
-    //             if (id === valor.id) {
-    //                 estaNoCarrinho = true;
-    //                 valor.qtd++;
-    //             }
-    //             return false;
-    //         });
-    
-    //         if (!estaNoCarrinho) {
-    //             productId[0].qtd = 1;
-    //             carrinhoLista.push(productId[0]);
-    //         }
-    //         this.setState({ carrinho: [...carrinhoLista] });
-    //     };
-    
-    //     //fim de funções
-    
-       //     render() {
-        
-        //         const mostraPagina = () => {
-          //             if (this.state.pagina === "carrinho") {
-            //                 return <Carrinho />
-            //             }
-            //             else {
-              //                 return <CardProduto produtos={this.state.produtos} adicionaCarrinho={this.adicionaCarrinho} />
-              //             }
-              //         }
-              
-              // trocaPagina = ()=>{
-                //   if (this.state.pagina === ""){
-                  //     this.setState({pagina:"carrinho"})
-                  //   }else {
-                    //     this.setState({pagina:""})
-                    //     }
-                    //   }                
+            
 handleFiltroMin = (event) => {
   this.setState({
     valorMin: event.target.value,
@@ -120,11 +41,18 @@ handleFiltroNome = (event) => {
 };
 
 botaoBuscar = () => {
-  this.setState({produtos: listaDeProdutos
-    .filter(produto => produto.valor >=this.state.valorMin)
-    .filter(produto => produto.valor <= this.state.valorMax)
-    .filter(produto => produto.nome.includes(this.state.filtroNome))
-  })  
+  if(this.state.valorMax === "") {
+    this.setState({produtos: listaDeProdutos
+      .filter(produto => produto.valor >=this.state.valorMin)
+      .filter(produto => produto.nome.toLowerCase().includes(this.state.filtroNome.toLowerCase()))
+    })
+  }else {
+    this.setState({produtos: listaDeProdutos
+      .filter(produto => produto.valor >=this.state.valorMin)
+      .filter(produto => produto.valor <= this.state.valorMax)
+      .filter(produto => produto.nome.toLowerCase().includes(this.state.filtroNome.toLowerCase()))
+    })  
+  }
 }
 
 botaoRemoverDoCarrinho = (objeto) => {
@@ -134,7 +62,7 @@ botaoRemoverDoCarrinho = (objeto) => {
       return true;
     }
     return false;
-    });
+  });
 };
 
 trocaPagina = () => {
