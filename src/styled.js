@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const MainContainer = styled.div`
   height:fit-content;
   margin: 3px;
@@ -26,7 +27,6 @@ export const Filtro = styled.div`
  // border: 3px solid gray;//
 display:grid;
 height: fit-content;
-
 width: auto;
 height:25vh;
 `
@@ -37,19 +37,21 @@ export const NomeSecao = styled.div`
   flex-direction: column-reverse;
   margin: 3px;
 `
+
 export const Ordem = styled.div`
   height: 40%;
- //border: 3px solid peru;//
   display: flex;
   justify-content: flex-end;
   align-items: center;
   margin: 3px;
+  padding: 16px;
 `
 export const MiddleContainer = styled.div`
   display: flex;
   height: 55vh;
-  //border: 3px solid red;//
   margin: 3px;
+  box-sizing: content-box;
+  min-height:48vh;
 `
 export const Sections = styled.div`
   width: 20vw;
@@ -62,13 +64,15 @@ padding-left:8%;
 `
 export const CardGrid = styled.div`
   width:80vw;
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
+  /* display: grid;
   grid-template-columns: repeat(3, 1fr);
- // border: 3px solid blue;
   margin: 3px;
   grid-gap: 10px;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width:80vw;
+  box-sizing: content-box;
 `
 export const Footer = styled.div`
   height:10vh;
@@ -108,3 +112,4 @@ max-width:200px;
 border-bottom:2px solid white;
 img{height: 4vh};
 `
+

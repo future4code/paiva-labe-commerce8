@@ -1,12 +1,12 @@
 import React from 'react';
-import { BotaoCompras } from '../../styled';
-import {FlexRow,FlexColumn,FlexRowSepara, ImgCart} from "./styled"
+import {Container, FlexRow,FlexColumn,FlexRowSepara, ImgCart, Button} from "./styled"
+
 
 class CardProduto extends React.Component {
 
     render() {
         return (
-            <FlexRow>
+            <Container>
                 {this.props.produtos.map((produto)=>{
                    return (
                     <FlexRow key={produto.id} >
@@ -14,15 +14,15 @@ class CardProduto extends React.Component {
                         <FlexColumn>
                         <h2>{produto.nome}</h2>
                             <FlexRowSepara>
-                            <h3>"Valor do Produto: R$ "{produto.valor}</h3>
-                            <button onClick={()=>this.props.adicionaCarrinho(produto.id)}>Adicionar ao Carrinho
-                            </button>
+                            <h4>Valor do Produto: <br/>R$ {produto.valor}</h4>
+                            <Button onClick={()=>this.props.adicionaCarrinho(produto.id)}>Adicionar ao Carrinho
+                            </Button>
                             </FlexRowSepara>
                         </FlexColumn>
                     </FlexRow>
                    ) 
                 })}              
-            </FlexRow>
+            </Container>
         )
     }
 }

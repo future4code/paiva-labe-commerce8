@@ -19,28 +19,65 @@ import Facebook from './img/facebook.png'
 import Twitter from './img/twitter.png'
 
 
-class App extends React.Component {
-    //funções aqui
-    handleFiltroMin = (event) => {
-        this.setState({
-            valorMin: event.target.value,
-        });
-    };
-    handleFiltroMax = (event) => {
-        this.setState({
-            valorMax: event.target.value,
-        });
-    };
-    handleFiltroNome = (event) => {
-        this.setState({
-            filtroNome: event.target.value,
-        });
-    };
-    botaoBuscar = () => {
-        return this.state.listaProdutos
-            .filter(produto => produto.valor >= this.state.valorMin)
-            .filter(produto => produto.valor <= this.state.valorMax)
-            .filter(produto => produto.name.includes(this.state.filtroNome))
+
+// class App extends React.Component {
+//     //funções aqui
+//     handleFiltroMin = (event) => {
+//         this.setState({
+//             valorMin: event.target.value,
+//         });
+//     };
+//     handleFiltroMax = (event) => {
+//         this.setState({
+//             valorMax: event.target.value,
+//         });
+//     };
+//     handleFiltroNome = (event) => {
+//         this.setState({
+//             filtroNome: event.target.value,
+//         });
+//     };
+//     botaoBuscar = () => {
+//         return this.state.listaProdutos
+//             .filter(produto => produto.valor >= this.state.valorMin)
+//             .filter(produto => produto.valor <= this.state.valorMax)
+//             .filter(produto => produto.name.includes(this.state.filtroNome))
+
+//funções aqui
+handleFiltroMin = (event) => {
+  this.setState({
+    valorMin: event.target.value,
+  });
+};
+handleFiltroMax = (event) => {
+  this.setState({
+    valorMax: event.target.value,
+  });
+};
+handleFiltroNome = (event) => {
+  this.setState({
+    filtroNome: event.target.value,
+  });
+};
+botaoBuscar = () => {
+  this.setState({produtos: listaDeProdutos
+    .filter(produto => produto.valor >=this.state.valorMin)
+    .filter(produto => produto.valor <= this.state.valorMax)
+    .filter(produto => produto.nome.includes(this.state.filtroNome))
+  })  
+  }
+ordenaLista = (array) => {
+ // copiada a função da lista semana4, ajustar para o problema em específico
+  let temp;
+  let novoArray = array;
+  for (let i = 0; i < array.length; i++) {
+    for (let i = 0; i < array.length; i++) {
+      if (novoArray[i] > novoArray[i + 1]) {
+        temp = novoArray[i];
+        novoArray[i] = novoArray[i + 1];
+        novoArray[i + 1] = temp;
+      }
+
     }
     OrdenaLista = (array) => {
         //copiada a função da lista semana4, ajustar para o problema em específico
@@ -80,142 +117,305 @@ class App extends React.Component {
         console.log(this.state.pagina)
     }
 
-    adicionaCarrinho = (id) => {
-        const copiaLista = [...this.state.produtos];
 
-        let productId = copiaLista.filter((produto) => {
-            if (id === produto.id) {
-                return true;
-            }
-            return false;
-        });
+//     adicionaCarrinho = (id) => {
+//         const copiaLista = [...this.state.produtos];
+
+//         let productId = copiaLista.filter((produto) => {
+//             if (id === produto.id) {
+//                 return true;
+//             }
+//             return false;
+//         });
 
 
-        let carrinhoLista = [...this.state.carrinho];
+//         let carrinhoLista = [...this.state.carrinho];
 
-        let estaNoCarrinho = false;
-        carrinhoLista.map((valor) => {
-            if (id === valor.id) {
-                estaNoCarrinho = true;
-                valor.qtd++;
-            }
-            return false;
-        });
+//         let estaNoCarrinho = false;
+//         carrinhoLista.map((valor) => {
+//             if (id === valor.id) {
+//                 estaNoCarrinho = true;
+//                 valor.qtd++;
+//             }
+//             return false;
+//         });
 
-        if (!estaNoCarrinho) {
-            productId[0].qtd = 1;
-            carrinhoLista.push(productId[0]);
-        }
-        this.setState({ carrinho: [...carrinhoLista] });
-    };
+//         if (!estaNoCarrinho) {
+//             productId[0].qtd = 1;
+//             carrinhoLista.push(productId[0]);
+//         }
+//         this.setState({ carrinho: [...carrinhoLista] });
+//     };
 
-    //fim de funções
+//     //fim de funções
 
-    state = {
-        produtos: [...listaDeProdutos],
-        valorMin: "",
-        valorMax: "",
-        filtroNome: "",
-        carrinho: [],
-        pagina: ""
+//     state = {
+//         produtos: [...listaDeProdutos],
+//         valorMin: "",
+//         valorMax: "",
+//         filtroNome: "",
+//         carrinho: [],
+//         pagina: ""
+//     }
+//     render() {
+
+//         const mostraPagina = () => {
+//             if (this.state.pagina === "carrinho") {
+//                 return <Carrinho />
+//             }
+//             else {
+//                 return <CardProduto produtos={this.state.produtos} adicionaCarrinho={this.adicionaCarrinho} />
+//             }
+//         }
+//         return (
+//             <div className="App">
+//                 <MainContainer>
+//                     <Header>
+//                         <div>
+//                             <img src={Logo} />
+//                         </div>
+
+//                         <BotaoCar onClick={this.trocaPagina}>
+//                             {this.state.pagina ? "Voltar A Comprar" : "Ir para o carrinho"}
+//                         </BotaoCar>
+//                     </Header>
+//                     <TopContainer>
+//                         <Filtro>
+//                             <Inputs>
+//                                 <Titulos>Valor mínimo:</Titulos>
+//                                 <input type="number" onChange={this.handleFiltroMin} />
+
+//                             </Inputs>
+
+//                             <Inputs>
+//                                 <Titulos>Valor máximo</Titulos>
+//                                 <input type="number" onChange={this.handleFiltroMax} />
+
+//                             </Inputs>
+
+//                             <Inputs>
+//                                 <Titulos>Busca por nome:</Titulos>
+//                                 <input type="text" onChange={this.handleFiltroNome} />
+//                                 <br></br>
+//                                 <BotaoCar onClick={this.botaoBuscar}>Buscar</BotaoCar>
+
+//                             </Inputs>
+//                         </Filtro>
+
+//                         <NomeSecao>
+//                             <Ordem>
+//                                 <p><strong>Ordem:</strong>
+//                                     <select>
+//                                         <option>Crescente</option>
+//                                         <option>Decrescente</option>
+//                                     </select>
+//                                 </p>
+
+
+
+//                             </Ordem>
+//                         </NomeSecao>
+//                     </TopContainer>
+
+//                     <MiddleContainer>
+
+//                         <Sections>
+//                             <Titulos>
+//                                 <Icones><img src={Aerolito} /> <p>AeroLitos</p> </Icones>
+//                                 <Icones><img src={Foguete} /><p>Foguetes</p></Icones>
+//                                 <Icones><img src={Camisa} /><p>Camisas</p></Icones>
+//                                 <Icones><img src={Nave} /><p>Naves</p> </Icones>
+//                                 <Icones><img src={Onibus} /><p>Onibus</p></Icones>
+//                                 <Icones><img src={Planeta} /><p>Planetas</p></Icones>
+//                                 <Icones><img src={Roupaespacial} /><p>Roupas Espaciais</p></Icones>
+//                                 <Icones><img src={Satelite} /><p>Satélites</p></Icones>
+//                                 <Icones><img src={Brinquedos} /><p>Brinquedos</p></Icones>
+//                             </Titulos>
+
+//                         </Sections>
+
+//                         <CardGrid>
+//                             {mostraPagina()}
+//                         </CardGrid>
+
+//                     </MiddleContainer>
+
+//                     <Footer>
+//                         <Titulos>
+//                             Siga-nos nas Redes Sociais
+//                              </Titulos>
+//                         <img src={Instagram} /><img src={Facebook} /><img src={Twitter} />
+
+
+//                     </Footer>
+
+//                 </MainContainer>
+//             </div>
+//         );
+//     }
+
+    return false;
+  });
+};
+
+trocaPagina = ()=>{
+    if (this.state.pagina === ""){
+        this.setState({pagina:"carrinho"})
+    }else {
+        this.setState({pagina:""})
     }
-    render() {
+}
 
-        const mostraPagina = () => {
-            if (this.state.pagina === "carrinho") {
-                return <Carrinho />
-            }
-            else {
-                return <CardProduto produtos={this.state.produtos} adicionaCarrinho={this.adicionaCarrinho} />
-            }
-        }
-        return (
-            <div className="App">
-                <MainContainer>
-                    <Header>
-                        <div>
-                            <img src={Logo} />
-                        </div>
+adicionaCarrinho = (id) => {
+ const copiaLista = [...this.state.produtos];
+ 
+ let productId = copiaLista.filter((produto) => {
+   if (id === produto.id) {
+     return true;
+   }
+   return false;
+   });
+ 
+ let carrinhoLista = [...this.state.carrinho];
+ 
+ let estaNoCarrinho = false;
+   carrinhoLista.map((valor) => {
+     if (id === valor.id) {
+       estaNoCarrinho = true;
+       valor.qtd++;
+     }        
+     return false;
+   });
+   
+   if (!estaNoCarrinho) {
+     productId[0].qtd = 1;
+     carrinhoLista.push(productId[0]);
+   }
+   this.setState({ carrinho: [...carrinhoLista] });
+ };
 
-                        <BotaoCar onClick={this.trocaPagina}>
-                            {this.state.pagina ? "Voltar A Comprar" : "Ir para o carrinho"}
-                        </BotaoCar>
-                    </Header>
-                    <TopContainer>
-                        <Filtro>
-                            <Inputs>
-                                <Titulos>Valor mínimo:</Titulos>
-                                <input type="number" onChange={this.handleFiltroMin} />
+ somar = (produto) => {
+   
+  let carrinhoLista = [...this.state.carrinho]
+  carrinhoLista.map((valor) => {
+    if (produto === valor) {
+      valor.qtd++;
+    }        
+    return false;
+  });
+  this.setState({ carrinho: [...carrinhoLista] });
+};
 
-                            </Inputs>
+subtrair = (item) => {
+ let carrinhoLista = [...this.state.carrinho];
+  if (item.qtd > 1) {
+    carrinhoLista.map((valor) => {
+      if (item.id === valor.id) {
+        valor.qtd--;
+      }
+      return false;
+    });
+  } else {
+    let posicao = null;
+    carrinhoLista.filter((valor, index) => {
+      if (item.id === valor.id) {
+        posicao = index;
+      }
+      return true;
+    });
+    carrinhoLista.splice(posicao, 1);
+  }
+  this.setState({ carrinho: [...carrinhoLista] });
+}
 
-                            <Inputs>
-                                <Titulos>Valor máximo</Titulos>
-                                <input type="number" onChange={this.handleFiltroMax} />
+//fim de funções
 
-                            </Inputs>
+state = {
+  produtos: [...listaDeProdutos],
+  valorMin:"",
+  valorMax:"",
+  filtroNome: "",
+  carrinho: [],
+  pagina: ""
+}
 
-                            <Inputs>
-                                <Titulos>Busca por nome:</Titulos>
-                                <input type="text" onChange={this.handleFiltroNome} />
-                                <br></br>
-                                <BotaoCar onClick={this.botaoBuscar}>Buscar</BotaoCar>
+  render() {
 
-                            </Inputs>
-                        </Filtro>
-
-                        <NomeSecao>
-                            <Ordem>
-                                <p><strong>Ordem:</strong>
-                                    <select>
-                                        <option>Crescente</option>
-                                        <option>Decrescente</option>
-                                    </select>
-                                </p>
-
-
-
-                            </Ordem>
-                        </NomeSecao>
-                    </TopContainer>
-
-                    <MiddleContainer>
-
-                        <Sections>
-                            <Titulos>
-                                <Icones><img src={Aerolito} /> <p>AeroLitos</p> </Icones>
-                                <Icones><img src={Foguete} /><p>Foguetes</p></Icones>
-                                <Icones><img src={Camisa} /><p>Camisas</p></Icones>
-                                <Icones><img src={Nave} /><p>Naves</p> </Icones>
-                                <Icones><img src={Onibus} /><p>Onibus</p></Icones>
-                                <Icones><img src={Planeta} /><p>Planetas</p></Icones>
-                                <Icones><img src={Roupaespacial} /><p>Roupas Espaciais</p></Icones>
-                                <Icones><img src={Satelite} /><p>Satélites</p></Icones>
-                                <Icones><img src={Brinquedos} /><p>Brinquedos</p></Icones>
-                            </Titulos>
-
-                        </Sections>
-
-                        <CardGrid>
-                            {mostraPagina()}
-                        </CardGrid>
-
-                    </MiddleContainer>
-
-                    <Footer>
-                        <Titulos>
-                            Siga-nos nas Redes Sociais
-                             </Titulos>
-                        <img src={Instagram} /><img src={Facebook} /><img src={Twitter} />
-
-
-                    </Footer>
-
-                </MainContainer>
-            </div>
-        );
+  
+    const mostraPagina = () =>{
+      if (this.state.pagina === "carrinho"){
+        return <Carrinho carrinho={this.state.carrinho} somar={this.somar} subtrair={this.subtrair}/>
+      }
+      else {
+      return <CardProduto produtos={this.state.produtos} adicionaCarrinho={this.adicionaCarrinho}/>
+      }
     }
 
+                
+    return (
+      <div className="App">
+        <MainContainer>
+          <Header>
+        Oi, eu sou o header!
+          </Header>
+          <TopContainer>
+            <Filtro>
+              <Inputs>
+                <p>Valor mínimo:<br/>
+                  <input type="number" onChange={this.handleFiltroMin}/>
+                </p>
+              </Inputs>
+  
+              <Inputs>
+                <p>Valor máximo:<br/>
+                  <input type="number" onChange={this.handleFiltroMax}/>
+                </p>
+              </Inputs>
+  
+              <Inputs>
+                <p>Busca por nome:<br/>
+                  <input type="text" onChange={this.handleFiltroNome}/><br/><br/>
+                  <button onClick={this.botaoBuscar}>Filtrar</button>
+                </p>
+              </Inputs>
+            </Filtro>
+  
+            <NomeSecao>
+              <Ordem>
+                <p><strong>Ordem:</strong> 
+                  <select>  
+                    <option>Crescente</option>
+                    <option>Decrescente</option>
+                  </select>
+                </p>
+                <button onClick = {this.trocaPagina}>
+              {this.state.pagina ? "Voltar A Comprar":"Ir para o carrinho"}
+              </button>
+              </Ordem>
+
+            </NomeSecao>
+          </TopContainer>
+  
+          <MiddleContainer>
+  
+            <Sections>
+            lalala
+            </Sections>
+  
+            <CardGrid>
+              {mostraPagina()}
+            </CardGrid>
+  
+          </MiddleContainer>
+  
+          <Footer>
+          </Footer>
+  
+        </MainContainer>
+      </div>
+    );
+  }
+ 
 }
 
 export default App;
