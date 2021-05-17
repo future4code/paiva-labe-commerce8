@@ -20,294 +20,101 @@ import Twitter from './img/twitter.png'
 
 
 
-// class App extends React.Component {
-//     //funções aqui
-//     handleFiltroMin = (event) => {
-//         this.setState({
-//             valorMin: event.target.value,
-//         });
-//     };
-//     handleFiltroMax = (event) => {
-//         this.setState({
-//             valorMax: event.target.value,
-//         });
-//     };
-//     handleFiltroNome = (event) => {
-//         this.setState({
-//             filtroNome: event.target.value,
-//         });
-//     };
-//     botaoBuscar = () => {
-//         return this.state.listaProdutos
-//             .filter(produto => produto.valor >= this.state.valorMin)
-//             .filter(produto => produto.valor <= this.state.valorMax)
-//             .filter(produto => produto.name.includes(this.state.filtroNome))
-
-//funções aqui
+class App extends React.Component {
+            
 handleFiltroMin = (event) => {
   this.setState({
     valorMin: event.target.value,
   });
 };
+                    
 handleFiltroMax = (event) => {
   this.setState({
     valorMax: event.target.value,
   });
 };
+
 handleFiltroNome = (event) => {
   this.setState({
     filtroNome: event.target.value,
   });
 };
+
 botaoBuscar = () => {
-  this.setState({produtos: listaDeProdutos
-    .filter(produto => produto.valor >=this.state.valorMin)
-    .filter(produto => produto.valor <= this.state.valorMax)
-    .filter(produto => produto.nome.includes(this.state.filtroNome))
-  })  
+  if(this.state.valorMax === "") {
+    this.setState({produtos: listaDeProdutos
+      .filter(produto => produto.valor >=this.state.valorMin)
+      .filter(produto => produto.nome.toLowerCase().includes(this.state.filtroNome.toLowerCase()))
+    })
+  }else {
+    this.setState({produtos: listaDeProdutos
+      .filter(produto => produto.valor >=this.state.valorMin)
+      .filter(produto => produto.valor <= this.state.valorMax)
+      .filter(produto => produto.nome.toLowerCase().includes(this.state.filtroNome.toLowerCase()))
+    })  
   }
-ordenaLista = (array) => {
- // copiada a função da lista semana4, ajustar para o problema em específico
-  let temp;
-  let novoArray = array;
-  for (let i = 0; i < array.length; i++) {
-    for (let i = 0; i < array.length; i++) {
-      if (novoArray[i] > novoArray[i + 1]) {
-        temp = novoArray[i];
-        novoArray[i] = novoArray[i + 1];
-        novoArray[i + 1] = temp;
-      }
+}
 
+botaoRemoverDoCarrinho = (objeto) => {
+  const removeCart = [...this.state.produtosCarrinho];
+    removeCart.filter((valor) => {
+    if (objeto.id !== valor.id) {
+      return true;
     }
-    OrdenaLista = (array) => {
-        //copiada a função da lista semana4, ajustar para o problema em específico
-        let temp;
-        let novoArray = array;
-        for (let i = 0; i < array.length; i++) {
-            for (let i = 0; i < array.length; i++) {
-                if (novoArray[i] > novoArray[i + 1]) {
-                    temp = novoArray[i];
-                    novoArray[i] = novoArray[i + 1];
-                    novoArray[i + 1] = temp;
-                }
-            }
-        }
-        return novoArray;
-    };
-
-    botaoRemoverDoCarrinho = (objeto) => {
-        const removeCart = [...this.state.produtosCarrinho];
-        removeCart.filter((valor) => {
-            if (objeto.id !== valor.id) {
-                return true;
-            }
-            return false;
-        });
-    };
-
-    botaoIrParaCarrinho = () => {
-
-    };
-    trocaPagina = () => {
-        if (this.state.pagina === "") {
-            this.setState({ pagina: "carrinho" })
-        } else {
-            this.setState({ pagina: "" })
-        }
-        console.log(this.state.pagina)
-    }
-
-
-//     adicionaCarrinho = (id) => {
-//         const copiaLista = [...this.state.produtos];
-
-//         let productId = copiaLista.filter((produto) => {
-//             if (id === produto.id) {
-//                 return true;
-//             }
-//             return false;
-//         });
-
-
-//         let carrinhoLista = [...this.state.carrinho];
-
-//         let estaNoCarrinho = false;
-//         carrinhoLista.map((valor) => {
-//             if (id === valor.id) {
-//                 estaNoCarrinho = true;
-//                 valor.qtd++;
-//             }
-//             return false;
-//         });
-
-//         if (!estaNoCarrinho) {
-//             productId[0].qtd = 1;
-//             carrinhoLista.push(productId[0]);
-//         }
-//         this.setState({ carrinho: [...carrinhoLista] });
-//     };
-
-//     //fim de funções
-
-//     state = {
-//         produtos: [...listaDeProdutos],
-//         valorMin: "",
-//         valorMax: "",
-//         filtroNome: "",
-//         carrinho: [],
-//         pagina: ""
-//     }
-//     render() {
-
-//         const mostraPagina = () => {
-//             if (this.state.pagina === "carrinho") {
-//                 return <Carrinho />
-//             }
-//             else {
-//                 return <CardProduto produtos={this.state.produtos} adicionaCarrinho={this.adicionaCarrinho} />
-//             }
-//         }
-//         return (
-//             <div className="App">
-//                 <MainContainer>
-//                     <Header>
-//                         <div>
-//                             <img src={Logo} />
-//                         </div>
-
-//                         <BotaoCar onClick={this.trocaPagina}>
-//                             {this.state.pagina ? "Voltar A Comprar" : "Ir para o carrinho"}
-//                         </BotaoCar>
-//                     </Header>
-//                     <TopContainer>
-//                         <Filtro>
-//                             <Inputs>
-//                                 <Titulos>Valor mínimo:</Titulos>
-//                                 <input type="number" onChange={this.handleFiltroMin} />
-
-//                             </Inputs>
-
-//                             <Inputs>
-//                                 <Titulos>Valor máximo</Titulos>
-//                                 <input type="number" onChange={this.handleFiltroMax} />
-
-//                             </Inputs>
-
-//                             <Inputs>
-//                                 <Titulos>Busca por nome:</Titulos>
-//                                 <input type="text" onChange={this.handleFiltroNome} />
-//                                 <br></br>
-//                                 <BotaoCar onClick={this.botaoBuscar}>Buscar</BotaoCar>
-
-//                             </Inputs>
-//                         </Filtro>
-
-//                         <NomeSecao>
-//                             <Ordem>
-//                                 <p><strong>Ordem:</strong>
-//                                     <select>
-//                                         <option>Crescente</option>
-//                                         <option>Decrescente</option>
-//                                     </select>
-//                                 </p>
-
-
-
-//                             </Ordem>
-//                         </NomeSecao>
-//                     </TopContainer>
-
-//                     <MiddleContainer>
-
-//                         <Sections>
-//                             <Titulos>
-//                                 <Icones><img src={Aerolito} /> <p>AeroLitos</p> </Icones>
-//                                 <Icones><img src={Foguete} /><p>Foguetes</p></Icones>
-//                                 <Icones><img src={Camisa} /><p>Camisas</p></Icones>
-//                                 <Icones><img src={Nave} /><p>Naves</p> </Icones>
-//                                 <Icones><img src={Onibus} /><p>Onibus</p></Icones>
-//                                 <Icones><img src={Planeta} /><p>Planetas</p></Icones>
-//                                 <Icones><img src={Roupaespacial} /><p>Roupas Espaciais</p></Icones>
-//                                 <Icones><img src={Satelite} /><p>Satélites</p></Icones>
-//                                 <Icones><img src={Brinquedos} /><p>Brinquedos</p></Icones>
-//                             </Titulos>
-
-//                         </Sections>
-
-//                         <CardGrid>
-//                             {mostraPagina()}
-//                         </CardGrid>
-
-//                     </MiddleContainer>
-
-//                     <Footer>
-//                         <Titulos>
-//                             Siga-nos nas Redes Sociais
-//                              </Titulos>
-//                         <img src={Instagram} /><img src={Facebook} /><img src={Twitter} />
-
-
-//                     </Footer>
-
-//                 </MainContainer>
-//             </div>
-//         );
-//     }
-
     return false;
   });
 };
 
-trocaPagina = ()=>{
-    if (this.state.pagina === ""){
-        this.setState({pagina:"carrinho"})
-    }else {
-        this.setState({pagina:""})
-    }
+trocaPagina = () => {
+  if (this.state.pagina === "") {
+    this.setState({ pagina: "carrinho" })
+  } else {
+    this.setState({ pagina: "" })
+  }
 }
 
 adicionaCarrinho = (id) => {
- const copiaLista = [...this.state.produtos];
- 
- let productId = copiaLista.filter((produto) => {
-   if (id === produto.id) {
-     return true;
-   }
-   return false;
-   });
- 
- let carrinhoLista = [...this.state.carrinho];
- 
- let estaNoCarrinho = false;
-   carrinhoLista.map((valor) => {
-     if (id === valor.id) {
+    const copiaLista = [...this.state.produtos];    
+    let productId = copiaLista.filter((produto) => {
+      if (id === produto.id) {
+        return true;
+      }
+      return false;
+    });
+    
+    let carrinhoLista = [...this.state.carrinho];
+    
+    let estaNoCarrinho = false;
+    carrinhoLista.map((valor) => {
+      if (id === valor.id) {
        estaNoCarrinho = true;
        valor.qtd++;
-     }        
-     return false;
-   });
-   
-   if (!estaNoCarrinho) {
-     productId[0].qtd = 1;
-     carrinhoLista.push(productId[0]);
-   }
-   this.setState({ carrinho: [...carrinhoLista] });
- };
-
- somar = (produto) => {
-   
+      }        
+      return false;
+    });
+    
+    if (!estaNoCarrinho) {
+      productId[0].qtd = 1;
+      carrinhoLista.push(productId[0]);
+    }
+    this.setState({ carrinho: [...carrinhoLista] });
+};
+  
+somar = (produto) => {
+  
   let carrinhoLista = [...this.state.carrinho]
   carrinhoLista.map((valor) => {
     if (produto === valor) {
       valor.qtd++;
     }        
     return false;
-  });
-  this.setState({ carrinho: [...carrinhoLista] });
+    });
+    this.setState({ carrinho: [...carrinhoLista] });
 };
-
+  
 subtrair = (item) => {
- let carrinhoLista = [...this.state.carrinho];
+  
+  let carrinhoLista = [...this.state.carrinho];
   if (item.qtd > 1) {
     carrinhoLista.map((valor) => {
       if (item.id === valor.id) {
@@ -340,8 +147,7 @@ state = {
 }
 
   render() {
-
-  
+    
     const mostraPagina = () =>{
       if (this.state.pagina === "carrinho"){
         return <Carrinho carrinho={this.state.carrinho} somar={this.somar} subtrair={this.subtrair}/>
@@ -356,8 +162,11 @@ state = {
       <div className="App">
         <MainContainer>
           <Header>
-        Oi, eu sou o header!
+            <div>
+              <img src={Logo} />
+            </div>
           </Header>
+
           <TopContainer>
             <Filtro>
               <Inputs>
@@ -388,9 +197,9 @@ state = {
                     <option>Decrescente</option>
                   </select>
                 </p>
-                <button onClick = {this.trocaPagina}>
-              {this.state.pagina ? "Voltar A Comprar":"Ir para o carrinho"}
-              </button>
+              <BotaoCar onClick={this.trocaPagina}>
+                {this.state.pagina ? "Voltar A Comprar" : "Ir para o carrinho"}
+              </BotaoCar>
               </Ordem>
 
             </NomeSecao>
@@ -399,7 +208,17 @@ state = {
           <MiddleContainer>
   
             <Sections>
-            lalala
+              <Titulos>
+                <Icones><img src={Aerolito} /> <p>AeroLitos</p> </Icones>
+                <Icones><img src={Foguete} /><p>Foguetes</p></Icones>
+                <Icones><img src={Camisa} /><p>Camisas</p></Icones>
+                <Icones><img src={Nave} /><p>Naves</p> </Icones>
+                <Icones><img src={Onibus} /><p>Onibus</p></Icones>
+                <Icones><img src={Planeta} /><p>Planetas</p></Icones>
+                <Icones><img src={Roupaespacial} /><p>Roupas Espaciais</p></Icones>
+                <Icones><img src={Satelite} /><p>Satélites</p></Icones>
+                <Icones><img src={Brinquedos} /><p>Brinquedos</p></Icones>
+              </Titulos>
             </Sections>
   
             <CardGrid>
@@ -409,6 +228,10 @@ state = {
           </MiddleContainer>
   
           <Footer>
+          <Titulos>
+            Siga-nos nas Redes Sociais
+          </Titulos>
+          <img src={Instagram} /><img src={Facebook} /><img src={Twitter} />
           </Footer>
   
         </MainContainer>
