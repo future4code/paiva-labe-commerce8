@@ -1,4 +1,4 @@
-<h1 align = center>AeroStore 🚀</h1>  
+<a href="https://incompetent-owner.surge.sh/"><h1 align = center>AeroStore 🚀</h1>  </a>
 
 <p align=center>
   <a href="#sobre"> Sobre o projeto </a>•
@@ -28,6 +28,3 @@
  
 </br> 
 
- <strong id="surge"><li>Link do surge:</strong>
- 
- <p>incompetent-owner.surge.sh </p>
