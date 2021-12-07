@@ -4,7 +4,6 @@
   <a href="#sobre"> Sobre o projeto </a>•
   <a href="#funcionalidades"> Funcionalidades </a> •
   <a href="#tecnologias"> Tecnologias usadas </a>•
-  <a href="#surge"> Link do Surge  </a>
 </p>
   
   
